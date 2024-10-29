@@ -51,4 +51,38 @@
         }
         public string Info => $"{name} [{level}]";
         public void SayHi() => Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
+
+        public void Go(Direction movement)
+    {
+        string newMovement = movement.ToString();
+        Console.WriteLine($"{Name} goes {newMovement.ToLower()}");
     }
+
+    public void Go(Direction[] movements)
+    {
+        foreach (var direction in movements)
+        {
+            Go(direction); 
+        }
+    }
+
+    public void Go(string movements)
+    {
+        Direction[] directions = DirectionParser.Parse(movements);
+        foreach (var direction in directions)
+        {
+            Go(direction);
+        }
+    }
+
+    public void Go(string[] movements)
+    {
+        foreach (var movement in movements)
+        {
+            if (Enum.TryParse(movement, true, out Direction direction))
+            {
+                Go(direction);
+            }
+        }
+    }
+}
