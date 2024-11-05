@@ -7,37 +7,12 @@
         public string? Name
         {
             get { return name; }
-            init
-            {
-                if (value != null)
-                {
-                    name = value.Trim();
-                    if (name.Length < 3)
-                    {
-                        while (name.Length < 3) { name += "#"; }
-                    }
-                    if (name.Length > 25)
-                    {
-                        name = name.Substring(0, 25);
-                        name = name.Trim();
-                        if (name.Length < 3)
-                        {
-                            while (name.Length != 3) { name += "#"; }
-                        }
-                    }
-                    name = char.ToUpper(name[0]) + name.Substring(1);
-                }
-            }
+            init {name = Validator.Shortener(value, 3, 25, '#');}
         }
         public int Level
         {
             get { return level; }
-            init
-            {
-                if (value < 1) { level = 1; }
-                else if (value > 10) { level = 10; }
-                else level = value;
-            }
+            init{ level = Validator.Limiter(value, 1, 10); }
         }
         public Creature(string name, int level = 1)
         {
@@ -49,8 +24,14 @@
         {
             if (level < 10) { level += 1; }
         }
-        public string Info => $"{name} [{level}]";
+        public abstract string Info {get;}
+        public override string ToString()
+        {
+            return $"{GetType().Name.ToUpper()}: {Info}";
+        }
         public abstract void SayHi();
+
+
         public void Go(Direction movement)
     {
         string newMovement = movement.ToString();
