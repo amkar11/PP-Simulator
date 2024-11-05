@@ -1,9 +1,9 @@
 
-    public class Creature
+    public abstract class Creature
     {
         private string? name;
         private int level;
-
+        public abstract int power {get;}
         public string? Name
         {
             get { return name; }
@@ -50,8 +50,7 @@
             if (level < 10) { level += 1; }
         }
         public string Info => $"{name} [{level}]";
-        public void SayHi() => Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
-
+        public abstract void SayHi();
         public void Go(Direction movement)
     {
         string newMovement = movement.ToString();

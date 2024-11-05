@@ -12,3 +12,4 @@ C:\Users\2016s\Downloads\PP-Simulator\PP-Simulator\obj\Debug\net8.0\refint\PP-Si
 C:\Users\2016s\Downloads\PP-Simulator\PP-Simulator\obj\Debug\net8.0\PP-Simulator.pdb
 C:\Users\2016s\Downloads\PP-Simulator\PP-Simulator\obj\Debug\net8.0\PP-Simulator.genruntimeconfig.cache
 C:\Users\2016s\Downloads\PP-Simulator\PP-Simulator\obj\Debug\net8.0\ref\PP-Simulator.dll
+C:\Users\2016s\Downloads\PP-Simulator\PP-Simulator\obj\Debug\net8.0\PP-Simulator.sourcelink.json
