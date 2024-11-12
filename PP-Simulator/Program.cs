@@ -1,63 +1,26 @@
-﻿namespace PP_Simulator;
+﻿using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
+
+namespace PP_Simulator;
 
 class Program
 {
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
-
-        static void Lab4a()
-        {
-        Console.WriteLine("HUNT TEST\n");
-        var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
-        for (int i = 0; i < 10; i++)
-        {
-            o.Hunt();
-            o.SayHi();
-        }
-
-        Console.WriteLine("\nSING TEST\n");
-        var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
-        for (int i = 0; i < 10; i++)
-        {
-            e.Sing();
-            e.SayHi();
-        }
-
-        Console.WriteLine("\nPOWER TEST\n");
-        Creature[] creatures = {
-            o,
-            e,
-            new Orc("Morgash", 3, 8),
-            new Elf("Elandor", 5, 3)
-            };
-        foreach (Creature creature in creatures)
-        {
-            Console.WriteLine($"{creature.Name,-15}: {creature.power}");
-        }
-        }
-        Lab4a();
-        Creature c = new Elf("Elandor", 5, 3);
-        Console.WriteLine(c);
-        static void Lab4b(){
-        object[] myObjects = {
-            new Animals() { Description = "dogs"},
-            new Birds { Description = "  eagles ", Size = 10 },
-            new Elf("e", 15, -3),
-            new Orc("morgash", 6, 4)
-        };
-        Console.WriteLine("\nMy objects:");
-        foreach (var o in myObjects) Console.WriteLine(o);
-        /*
-            My objects:
-            ANIMALS: Dogs <3>
-            BIRDS: Eagles (fly+) <10>
-            ELF: E## [10][0]
-            ORC: Morgash [6][4]
-        */
+          
+    Lab5a();
     }
-        Lab4b();
-    }
+   public static void Lab5a(){
+            Rectangle rectangle = new Rectangle(6, 7, 12, 13);
+            Console.WriteLine(rectangle);
+            Rectangle chudy_rectangle = new Rectangle(6, 7, 6, 13);
+            Rectangle zly_rectangle = new Rectangle(6, 7, 5, 13);
+            Console.WriteLine(zly_rectangle);
+            Point rectangle_point = new(8 ,11);
+            Point rectangle_point1 = new(7, 14);
+            Console.WriteLine(rectangle.Contains(rectangle_point));
+            Console.WriteLine(rectangle.Contains(rectangle_point1));
+        }
+    
 }
