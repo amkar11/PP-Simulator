@@ -1,3 +1,11 @@
-PP-Simulator/obj/Debug/net8.0
-PP-Simulator/bin
+bin/
+obj/
+
+.vs/
+.idea/
+*.user
+*.suo
+
+*.userosscache
+*.sln.docstates
 
