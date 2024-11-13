@@ -29,40 +29,29 @@
         {
             return $"{GetType().Name.ToUpper()}: {Info}";
         }
-        public abstract void SayHi();
+        public abstract string Greeting();
 
 
-        public void Go(Direction movement)
+        public string Go(Direction movement) => $"{movement.ToString().ToLower()}";
+
+
+    public string[] Go(Direction[] movements)
     {
-        string newMovement = movement.ToString();
-        Console.WriteLine($"{Name} goes {newMovement.ToLower()}");
-    }
+        // Assuming 'Direction' has a meaningful ToString() implementation
+        string[] result = new string[movements.Length];
 
-    public void Go(Direction[] movements)
-    {
-        foreach (var direction in movements)
+        for (int i = 0; i < movements.Length; i++)
         {
-            Go(direction); 
+            result[i] = Go(movements[i]);
         }
-    }
 
-    public void Go(string movements)
-    {
-        Direction[] directions = DirectionParser.Parse(movements);
-        foreach (var direction in directions)
-        {
-            Go(direction);
-        }
+        return result;
     }
-
-    public void Go(string[] movements)
+    public string[] Go(string movements)
     {
-        foreach (var movement in movements)
-        {
-            if (Enum.TryParse(movement, true, out Direction direction))
-            {
-                Go(direction);
-            }
-        }
+        Direction[] parsedDirections = DirectionParser.Parse(movements);
+        return Go(parsedDirections);
     }
 }
+
+    

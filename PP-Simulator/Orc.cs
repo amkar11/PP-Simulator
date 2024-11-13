@@ -9,19 +9,19 @@ public class Orc : Creature
         init{ Validator.Limiter(rage = value, 1, 10); }
 
     }
-    public void Hunt() => Console.WriteLine($"{Name} is hunting."); 
+    public string Hunt() => $"{Name} is hunting."; 
     public Orc(string name, int level = 1, int rage = 1) : base(name, level)
         {
             Rage = rage;
         }
     public Orc() {}
     private int counter = 1;
-    public override void SayHi(){
+    public override string Greeting(){
         if (counter % 2 == 0  && rage<10){
             rage+=1;
         }
         counter+=1;
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+        return $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
     }
     public override string Info => $"{Name} [{Level}] [{Rage}]";
 }
