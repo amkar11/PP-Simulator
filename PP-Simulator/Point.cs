@@ -3,7 +3,10 @@ using System.Data;
 public readonly struct Point
 {
     public readonly int X, Y;
-    public Point(int x, int y) => (X, Y) = (x, y);
+    public Point(int x, int y){
+        X = x;
+        Y = y;
+    }
     public override string ToString() => $"({X}, {Y})";
 
     public Point Next(Direction direction)

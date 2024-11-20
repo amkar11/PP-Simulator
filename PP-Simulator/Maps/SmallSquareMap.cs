@@ -3,6 +3,12 @@ namespace Simulator.Maps
     public class SmallSquareMap : Map
     {
         public int Size { get; }
+        public Point point{
+            get {return point;}
+            set {
+                if (point.X < 0 || point.Y < 0){throw new ArgumentOutOfRangeException("Proszę podać wartości równe lub powyżej 0");}
+            }
+        }
 
         public SmallSquareMap(int size)
         {
@@ -14,63 +20,25 @@ namespace Simulator.Maps
             Size = size;
         }
 
-        public override bool Exist(Point p)
+        public override bool Exist(Point point)
         {
-            return p.X >= 0 && p.X < Size && p.Y >= 0 && p.Y < Size;
+            return point.X >= 0 && point.X < Size - 1 && point.Y >= 0 && point.Y < Size - 1;
         }
 
         public override Point Next(Point p, Direction d)
-        {
-            Point nextPoint = p;
-            switch (d)
-            {
-                case Direction.Up:
-                    nextPoint = new Point(p.X, p.Y - 1);
-                    break;
-                case Direction.Down:
-                    nextPoint = new Point(p.X, p.Y + 1);
-                    break;
-                case Direction.Left:
-                    nextPoint = new Point(p.X - 1, p.Y);
-                    break;
-                case Direction.Right:
-                    nextPoint = new Point(p.X + 1, p.Y);
-                    break;
+        { 
+            if (Exist(p)){
+                return p.Next(d);
             }
-
-            if (!Exist(nextPoint))
-            {
-                return p;
-            }
-
-            return nextPoint;
+            return p;
         }
 
         public override Point NextDiagonal(Point p, Direction d)
         {
-            Point nextPoint = p;
-            switch (d)
-            {
-                case Direction.Up:
-                    nextPoint = new Point(p.X + 1, p.Y - 1);
-                    break;
-                case Direction.Down:
-                    nextPoint = new Point(p.X - 1, p.Y + 1);
-                    break;
-                case Direction.Left:
-                    nextPoint = new Point(p.X - 1, p.Y - 1);
-                    break;
-                case Direction.Right:
-                    nextPoint = new Point(p.X + 1, p.Y + 1);
-                    break;
+            if (Exist(p)){
+                return p.NextDiagonal(d);
             }
-
-            if (!Exist(nextPoint))
-            {
-                return p;
-            }
-
-            return nextPoint;
+            return p;
         }
     }
 }
