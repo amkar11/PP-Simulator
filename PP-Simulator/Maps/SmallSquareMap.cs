@@ -22,13 +22,14 @@ namespace Simulator.Maps
 
         public override bool Exist(Point point)
         {
-            return point.X >= 0 && point.X < Size - 1 && point.Y >= 0 && point.Y < Size - 1;
+            return point.X >= 0 && point.X <= Size - 1 && point.Y >= 0 && point.Y <= Size - 1;
         }
 
         public override Point Next(Point p, Direction d)
         { 
             if (Exist(p)){
-                return p.Next(d);
+                p = p.Next(d);
+                if (p.X > Size - 1 || p.X < 0 || p.Y > Size - 1 || p.Y < 0) {throw new ArgumentOutOfRangeException("Jedna z wartości przekroczyła Size lub stała mniejsza od zera");}
             }
             return p;
         }
@@ -36,7 +37,8 @@ namespace Simulator.Maps
         public override Point NextDiagonal(Point p, Direction d)
         {
             if (Exist(p)){
-                return p.NextDiagonal(d);
+                p = p.NextDiagonal(d);
+                if (p.X > Size - 1 || p.X < 0 || p.Y > Size - 1 || p.Y < 0) {throw new ArgumentOutOfRangeException("Jedna z wartości przekroczyła Size lub stała mniejsza od zera");}
             }
             return p;
         }

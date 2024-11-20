@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PP-Simulator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d03ead91fe33239b6ed192bded26e6cf8d38f062")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e32db1caf5ceccda1dd5f44a182d7eb6e8c73b5a")]
 [assembly: System.Reflection.AssemblyProductAttribute("PP-Simulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PP-Simulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
