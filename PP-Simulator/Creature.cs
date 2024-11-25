@@ -35,12 +35,12 @@
         public string Go(Direction movement) => $"{movement.ToString().ToLower()}";
 
 
-    public string[] Go(Direction[] movements)
+    public string[] Go(List<Direction> movements)
     {
         // Assuming 'Direction' has a meaningful ToString() implementation
-        string[] result = new string[movements.Length];
+        string[] result = new string[movements.Count];
 
-        for (int i = 0; i < movements.Length; i++)
+        for (int i = 0; i < movements.Count; i++)
         {
             result[i] = Go(movements[i]);
         }
@@ -49,7 +49,7 @@
     }
     public string[] Go(string movements)
     {
-        Direction[] parsedDirections = DirectionParser.Parse(movements);
+        List<Direction> parsedDirections = DirectionParser.Parse(movements);
         return Go(parsedDirections);
     }
 }

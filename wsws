@@ -1,0 +1,90 @@
+[33mcommit f475d2b133608250c8b2e940031690d39bfb6a2a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;33mtag: [m[1;33mLab-6[m[33m)[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Wed Nov 20 23:15:52 2024 +0100
+
+    Testy
+
+[33mcommit e32db1caf5ceccda1dd5f44a182d7eb6e8c73b5a[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Wed Nov 20 20:28:26 2024 +0100
+
+    TDD
+
+[33mcommit d03ead91fe33239b6ed192bded26e6cf8d38f062[m
+Author: amkar11 <s-A301-16@CAMPUS.UEK.KRAKOW.PL>
+Date:   Wed Nov 13 12:47:11 2024 +0100
+
+    xUnit
+
+[33mcommit c5fa9519869103f8dba07b69d1848a3c48788432[m
+Author: amkar11 <s-A301-16@CAMPUS.UEK.KRAKOW.PL>
+Date:   Wed Nov 13 12:23:31 2024 +0100
+
+    Zajecia
+
+[33mcommit 43158c4d8245ba9acd157084b3d65e603a80fb29[m[33m ([m[1;33mtag: [m[1;33mLab-5[m[33m)[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Wed Nov 13 01:02:51 2024 +0100
+
+    Lab-5
+
+[33mcommit b469aa046b63c24ca30446ae395a888ca99dd8bd[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Wed Nov 13 00:54:40 2024 +0100
+
+    Lab-5
+
+[33mcommit a450879c3d557d491017da2fe1b410851b4e9344[m
+Merge: 2257d96 dfbfc06
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Wed Nov 13 00:04:43 2024 +0100
+
+    Prostokty
+
+[33mcommit 2257d96dbe29cdf31048bafcef909db3a846cbab[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Tue Nov 12 23:48:07 2024 +0100
+
+    Prostokąty
+
+[33mcommit dfbfc06a43a38426789bfc35876e8ba07542582a[m
+Author: Chmyr Oleksandr <146961709+amkar11@users.noreply.github.com>
+Date:   Tue Nov 12 23:44:27 2024 +0100
+
+    Delete PP-Simulator/bin/Debug/net8.0 directory
+
+[33mcommit b5d4f4d7081d41d744a9fb6f0169adf6cbbea07b[m
+Author: Chmyr Oleksandr <146961709+amkar11@users.noreply.github.com>
+Date:   Tue Nov 12 23:44:21 2024 +0100
+
+    Delete PP-Simulator/obj directory
+
+[33mcommit 9eed37ef0925f44e10be63bb50f0b51a20562182[m[33m ([m[1;33mtag: [m[1;33mLab-4[m[33m)[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Tue Nov 5 23:34:18 2024 +0100
+
+    Lab-4
+
+[33mcommit 79aad4328b8da67deb046bfc40b9ce2250de4fd3[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Tue Nov 5 20:03:36 2024 +0100
+
+    Elfy i orki
+
+[33mcommit 42a043fea7c4a1c525e5ed954dd6a2d25ea11fac[m[33m ([m[1;33mtag: [m[1;33mLab-3[m[33m)[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Tue Oct 29 23:57:28 2024 +0100
+
+    Lab-3
+
+[33mcommit 7147d5b057a144a695af898818c70d21660241df[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Tue Oct 29 00:43:33 2024 +0100
+
+    Settery
+
+[33mcommit d5da231fc7f571888c65b487a38b43085a81a8f0[m
+Author: amkar11 <acmyr97@gmail.com>
+Date:   Mon Oct 28 01:20:12 2024 +0100
+
+    Stwory
