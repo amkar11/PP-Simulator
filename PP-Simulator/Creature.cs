@@ -3,6 +3,8 @@
     {
         private string? name;
         private int level;
+        public SmallMap? map;
+        public Point position;
         public abstract int power {get;}
         public string? Name
         {
@@ -20,6 +22,12 @@
             Level = level;
         }
         public Creature() { }
+        public void AssignToMap(SmallMap map, Point startPosition)
+        {
+            if (this.map!=null) {throw new Exception("Stwór jest już przypisany do mapy");}
+            this.map = map;
+            position = startPosition;
+        }
         public void Upgrade()
         {
             if (level < 10) { level += 1; }
@@ -32,26 +40,15 @@
         public abstract string Greeting();
 
 
-        public string Go(Direction movement) => $"{movement.ToString().ToLower()}";
-
-
-    public string[] Go(List<Direction> movements)
-    {
-        // Assuming 'Direction' has a meaningful ToString() implementation
-        string[] result = new string[movements.Count];
-
-        for (int i = 0; i < movements.Count; i++)
-        {
-            result[i] = Go(movements[i]);
-        }
-
-        return result;
-    }
-    public string[] Go(string movements)
-    {
-        List<Direction> parsedDirections = DirectionParser.Parse(movements);
-        return Go(parsedDirections);
+        public void Go(Direction direction){
+        if (map == null) {throw new Exception("Stwór nie jest przywiązany do żadnej mapy");}
+        
+        Point newPosition = map.Next(position, direction);
+        map.Remove(position, this);
+        map.Add(newPosition, this);
+        position = newPosition;
     }
 }
+
 
     

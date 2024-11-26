@@ -1,21 +1,9 @@
 using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 
-public class SmallTorusMap : Map
+public class SmallTorusMap : SmallMap
 {
-    public readonly int Size;
-    public SmallTorusMap(int size){
-        if (size < 5 || size > 20)
-            {
-                throw new ArgumentOutOfRangeException(nameof(size), "Size must be between 5 and 20.");
-            }
-        Size = size;
-    }
-
-    public override bool Exist(Point p)
-    {
-        return p.X >= 0 && p.X <= Size - 1 && p.Y >= 0 && p.Y <= Size - 1;
-    }
+    public SmallTorusMap(int size) : base(size){}
 
     public override Point Next(Point p, Direction d)
     {
