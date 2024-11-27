@@ -28,14 +28,32 @@ public class SmallMap : Map{
             }
         }
     }
-    public void Move(Point p, Creature creature){ // przeniesienie stwora między dwoma punktami
-        if(creaturesAtPoints.ContainsKey(p)){
-            creaturesAtPoints[p].Add(creature);
-        }
-        creaturesAtPoints[p] = [creature];
+    public bool IsOccupied(Point p)
+    {
+        return creaturesAtPoints.ContainsKey(p) && creaturesAtPoints[p].Count > 0;
     }
-    public string At(Point p){
-        if (creaturesAtPoints.ContainsKey(p)){return $"Na tych koordynatach są takie stwory: {creaturesAtPoints[p]}";}
-        throw new Exception("Na podanym punkcie nie ma stworów");
+
+    public List<Creature> GetCreaturesAt(Point p)
+    {
+        if (creaturesAtPoints.ContainsKey(p))
+        {
+            return new List<Creature>(creaturesAtPoints[p]);
+        }
+        return new List<Creature>();
+    }
+    public void Move(Point from, Point to, Creature creature)
+    {
+        Remove(from, creature);
+        Add(to, creature);
+    }
+
+    public string At(Point p)
+    {
+        if (creaturesAtPoints.ContainsKey(p))
+        {
+            var creatures = string.Join(", ", creaturesAtPoints[p]);
+            return $"W tym punkcie są takie stwory: {creatures}";
+        }
+        return "W tym punkcie nie ma stworów";
     }
 }

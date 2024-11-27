@@ -3,63 +3,102 @@ public class Simulation
     /// <summary>
     /// Simulation's map.
     /// </summary>
-    public SmallMap Map { get; } 
-    
+    public SmallMap Map { get; }
+
     /// <summary>
     /// Creatures moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }  
+    public List<Creature> Creatures { get; }
 
     /// <summary>
-    /// Starting positions of creatures.
+    /// Cyclic list of creatures' moves.
     /// </summary>
-    public List<Point> Positions { get; }
-    
-    /// <summary>
-    /// Cyclic list of creatures moves. 
-    /// Bad moves are ignored - use DirectionParser.
-    /// First move is for first creature, second for second and so on.
-    /// When all creatures make moves, 
-    /// next move is again for first creature and so on.
-    /// </summary>
-    public string Moves { get; }
-    
-    /// <summary>
-    /// Has all moves been done?
-    /// </summary>
-    public bool Finished = false;
-    
-    /// <summary>
-    /// Creature which will be moving current turn.
-    /// </summary>
-    public Creature CurrentCreature {
-        get{ }
-    } 
+    public List<Direction> ParsedMoves { get; private set; }
 
     /// <summary>
-    /// Lowercase name of direction which will be used in current turn.
+    /// Indicates if the simulation has finished.
     /// </summary>
-    public string CurrentMoveName { /* implement getter only */ } 
+    public bool Finished { get; private set; } = false;
+
+    /// <summary>
+    /// Index of the current creature making a move.
+    /// </summary>
+    private int currentCreatureIndex = 0;
+
+    /// <summary>
+    /// Index of the current move.
+    /// </summary>
+    private int currentMoveIndex = 0;
 
     /// <summary>
     /// Simulation constructor.
-    /// Throw errors:
-    /// if creatures' list is empty,
-    /// if number of creatures differs from 
-    /// number of starting positions.
+    /// Throws errors if the creatures list is empty or if the number of creatures differs from the number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures, 
-        List<Point> positions, string moves) {
-            if (creatures.Count == 0) {throw new Exception("Lista ze stworami ma zawierać przynajmniej jednego stwora");}
-            if (creatures.Count != positions.Count) { throw new Exception ("Liczba startowych pozycji powinna odpowiadać liczbie stworów" );}
-            for (int i = 0; i < creatures.Count; i++){
-                creatures[i].AssignToMap(map, positions);
-            }
+    public Simulation(SmallMap map, List<Creature> creatures, List<Point> positions, string moves)
+    {
+        if (creatures.Count == 0)
+            throw new Exception("The list of creatures must contain at least one creature.");
+
+        if (creatures.Count != positions.Count)
+            throw new Exception("The number of starting positions must match the number of creatures.");
+
+        Map = map;
+        Creatures = creatures;
+
+        // Assign creatures to their starting positions on the map
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            creatures[i].AssignToMap(map, positions[i]);
         }
 
+        // Parse moves
+        ParsedMoves = DirectionParser.Parse(moves);
+        if (ParsedMoves.Count == 0)
+            throw new Exception("No valid moves provided.");
+    }
+    
+
     /// <summary>
-    /// Makes one move of current creature in current direction.
-    /// Throw error if simulation is finished.
+    /// Executes one turn of the simulation.
     /// </summary>
-    public void Turn() { /* implement */ }
+    public void Turn()
+    {
+        if (Finished)
+        {
+            Console.WriteLine("The simulation has already finished.");
+            return;
+        }
+
+        // Get the current creature and direction
+        Creature currentCreature = Creatures[currentCreatureIndex];
+        Direction currentMove = ParsedMoves[currentMoveIndex];
+
+        // Move the creature
+        currentCreature.Go(currentMove);
+
+        // Output the current move
+        Console.WriteLine($"Turn {currentMoveIndex + 1}:");
+        Console.WriteLine($"{currentCreature.GetType().Name.ToUpper()}: {currentCreature.Name} moves {currentMove}.");
+
+        // Display the map after the move
+        MapVisualizer visualizer = new MapVisualizer(Map);
+        visualizer.Draw();
+
+        // Update indexes for the next turn
+        currentCreatureIndex = (currentCreatureIndex + 1) % Creatures.Count;
+        currentMoveIndex++;
+
+        // Check if all moves have been completed
+        if (currentMoveIndex >= ParsedMoves.Count)
+        {
+            Finished = true;
+            Console.WriteLine("The simulation has finished.");
+        }
+        else
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
+    }
 }
+

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MapVisualizer\MapVisualizer.csproj" />
     <ProjectReference Include="..\PP-Simulator\PP-Simulator.csproj" />
   </ItemGroup>
 

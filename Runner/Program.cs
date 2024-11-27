@@ -7,10 +7,33 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Starting Simulator!\n");
-          
-    Lab5b();
-    }
+        SmallMap map = new SmallMap(7);
+        Creature orc = new Orc("Gorbag", 1);
+        Creature elf = new Elf("Legolas", 1);
+
+        List<Creature> creatures = new List<Creature> { orc, elf };
+        List<Point> positions = new List<Point> { new Point(2, 2), new Point(2, 3) };
+
+        // Example moves: down, up, left, right (can be parsed)
+        string moves = "down up down up";
+
+        Simulation simulation = new Simulation(map, creatures, positions, moves);
+
+        Console.WriteLine("SIMULATION!");
+        Console.WriteLine("Starting positions:");
+        MapVisualizer visualizer = new MapVisualizer(map);
+        visualizer.Draw();
+
+        Console.WriteLine("Press any key to start simulation...");
+        Console.ReadKey();
+
+        while (!simulation.Finished)
+        {
+            simulation.Turn();
+        }
+
+        Console.WriteLine("Simulation complete.");
+    } 
    public static void Lab5a(){
             Rectangle rectangle = new Rectangle(6, 7, 12, 13);
             Console.WriteLine(rectangle);
@@ -42,5 +65,5 @@ class Program
         Point nextOutsidePoint = map.Next(outsidePoint, Direction.Right); 
         Console.WriteLine($"Next point from {outsidePoint} in Right direction (out of bounds): {nextOutsidePoint}");
     }
-    
+  
 }
