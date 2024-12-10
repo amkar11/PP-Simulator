@@ -24,4 +24,5 @@ public class Orc : Creature
         return $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
     }
     public override string Info => $"{Name} [{Level}] [{Rage}]";
+    public override char Symbol => 'O';
 }

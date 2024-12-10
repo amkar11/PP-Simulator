@@ -8,7 +8,7 @@ public class Simulation
     /// <summary>
     /// Creatures moving on the map.
     /// </summary>
-    public List<IMappable> Creatures { get; }  
+    public List<IMappable> Mappables { get; }  
     
 
     /// <summary>
@@ -33,7 +33,7 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public IMappable CurrentCreature => Creatures[moves_counter % Creatures.Count];
+    public IMappable CurrentMappable => Mappables[moves_counter % Mappables.Count];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -49,14 +49,14 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<IMappable> creatures, 
+    public Simulation(Map map, List<IMappable> mappables, 
         List<Point> positions, string moves) {
-            if (creatures.Count == 0) {throw new Exception("Lista ze stworami ma zawierać przynajmniej jednego stwora");}
-            if (creatures.Count != positions.Count) { throw new Exception ("Liczba startowych pozycji powinna odpowiadać liczbie stworów" );}
-            for (int i = 0; i < creatures.Count; i++){
-                creatures[i].AssignToMap(map, positions[i]);
+            if (mappables.Count == 0) {throw new Exception("Lista ze stworami ma zawierać przynajmniej jednego stwora");}
+            if (mappables.Count != positions.Count) { throw new Exception ("Liczba startowych pozycji powinna odpowiadać liczbie stworów" );}
+            for (int i = 0; i < mappables.Count; i++){
+                mappables[i].AssignToMap(map, positions[i]);
             }
-            Creatures = creatures;
+            Mappables = mappables;
             Positions = positions;
             Moves = moves;
             Map = map;
@@ -82,7 +82,7 @@ public class Simulation
         if (directions != null && directions.Count > 0)
         {
             var direction = directions[0];
-            CurrentCreature.Go(direction);
+            CurrentMappable.Go(direction);
         }
         moves_counter++;
         // Check if all moves are done

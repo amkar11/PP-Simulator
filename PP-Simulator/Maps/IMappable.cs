@@ -1,5 +1,8 @@
-public interface IMappable{
+public interface IMappable
+{
+    public char Symbol { get; }
+    string Info { get; }
+    Point position { get; }
     void AssignToMap(Map map, Point startPosition);
-    void Upgrade();
     void Go(Direction direction);
 }

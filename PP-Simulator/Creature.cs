@@ -4,7 +4,7 @@
         private string? name;
         private int level;
         public Map? map;
-        public Point position;
+        public Point position { get; private set;}
         public abstract int power {get;}
         public string? Name
         {
@@ -33,6 +33,7 @@
             if (level < 10) { level += 1; }
         }
         public abstract string Info {get;}
+        public abstract char Symbol { get; }
         public override string ToString()
         {
             return $"{GetType().Name.ToUpper()}: {Info}";
@@ -47,7 +48,7 @@
         Point nextPosition = map.Next(position, direction);
         map.Move(this, position, nextPosition);
         position = nextPosition;
-     }
+        }
 }
 
 

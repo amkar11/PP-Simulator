@@ -35,27 +35,27 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public void Add(IMappable creature, Point point)
+    public void Add(IMappable mappable, Point point)
     {
         if (!Exist(point))
             throw new ArgumentException($"Punkt {point} jest poza granicami mapy.");
         Fields[point.X, point.Y] ??= new List<IMappable>();
-        Fields[point.X, point.Y]?.Add(creature);
+        Fields[point.X, point.Y]?.Add(mappable);
     }
 
-    public void Remove(IMappable creature, Point point)
+    public void Remove(IMappable mappable, Point point)
     {
         if (Fields[point.X, point.Y] != null)
         {
-            Fields[point.X, point.Y]?.Remove(creature);
+            Fields[point.X, point.Y]?.Remove(mappable);
             if (Fields[point.X, point.Y]?.Count == 0)
                 Fields[point.X, point.Y] = null;
         }
     }
-    public void Move(IMappable creature, Point from, Point to)
+    public void Move(IMappable mappable, Point from, Point to)
     {
-        Remove(creature, from);
-        Add(creature, to);
+        Remove(mappable, from);
+        Add(mappable, to);
     }
 
     public List<IMappable> At(Point point)
