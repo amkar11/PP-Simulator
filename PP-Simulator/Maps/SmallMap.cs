@@ -1,41 +1,13 @@
-public class SmallMap : Map{
-    private Dictionary<Point, List<Creature>> creaturesAtPoints;
-    public SmallMap(int size) : base(size)
-        {
-            if (size > 20)
-            {
-                throw new ArgumentOutOfRangeException(nameof(size), "Size must be between 5 and 20.");
-            }
-            creaturesAtPoints = new Dictionary<Point, List<Creature>>();
-        }
-    public void Add(Point p, Creature creature)
-    {
-        if (!creaturesAtPoints.ContainsKey(p))
-        {
-            creaturesAtPoints[p] = new List<Creature>();
-        }
-        creaturesAtPoints[p].Add(creature);
-    }
+public abstract class SmallMap : Map
+{
 
-    public void Remove(Point p, Creature creature)
+    private readonly List<Creature>? [,] _fields;
+    protected SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
-        if (creaturesAtPoints.ContainsKey(p))
-        {
-            creaturesAtPoints[p].Remove(creature);
-            if (creaturesAtPoints[p].Count == 0)
-            {
-                creaturesAtPoints.Remove(p);
-            }
-        }
+        if (sizeX > 20) throw new ArgumentOutOfRangeException("Szerokość mapy musi wynosić maksymalnie 20.");
+        if (sizeY > 20) throw new ArgumentOutOfRangeException("Długość mapy musi wynosić maksymalnie 20.");
+
+        _fields = new List<Creature>?[sizeX, sizeY];
     }
-    public void Move(Point p, Creature creature){ // przeniesienie stwora między dwoma punktami
-        if(creaturesAtPoints.ContainsKey(p)){
-            creaturesAtPoints[p].Add(creature);
-        }
-        creaturesAtPoints[p] = [creature];
-    }
-    public string At(Point p){
-        if (creaturesAtPoints.ContainsKey(p)){return $"Na tych koordynatach są takie stwory: {creaturesAtPoints[p]}";}
-        throw new Exception("Na podanym punkcie nie ma stworów");
-    }
+    protected override List<Creature>?[,] Fields => _fields;
 }

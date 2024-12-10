@@ -1,40 +1,30 @@
 /// <summary>
 /// Map of points.
 /// </summary>
-public class Map
+public abstract class Map
 {
-    public int Size { get; }
-    public Map(int size)
-        {
-            if (size < 5)
-            {
-                throw new ArgumentOutOfRangeException(nameof(size), "Size must be between 5 and 20.");
-            }
-
-            Size = size;
-        }
+    public int SizeX { get; }
+    public int SizeY { get; }
+    private Rectangle boundaries;
+    protected abstract List<Creature>?[,] Fields { get; }
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>
     /// <param name="p">Point to check.</param>
     /// <returns></returns>
-    public virtual bool Exist(Point p){
-        return p.X >= 0 && p.X <= Size - 1 && p.Y >= 0 && p.Y <= Size - 1;
+    public virtual bool Exist(Point p)
+    {
+        return boundaries.Contains(p);
     }
-    
+
+
     /// <summary>
     /// Next position to the point in a given direction.
     /// </summary>
     /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
-    public virtual Point Next(Point p, Direction d){
-        if (Exist(p)){
-                p = p.Next(d);
-                if (p.X > Size - 1 || p.X < 0 || p.Y > Size - 1 || p.Y < 0) {throw new ArgumentOutOfRangeException("Jedna z wartości przekroczyła Size lub stała mniejsza od zera");}
-            }
-            return p;
-    }
+    public abstract Point Next(Point p, Direction d);
 
     /// <summary>
     /// Next diagonal position to the point in a given direction 
@@ -43,11 +33,48 @@ public class Map
     /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
-    public virtual Point NextDiagonal(Point p, Direction d){
-        if (Exist(p)){
-                p = p.NextDiagonal(d);
-                if (p.X > Size - 1 || p.X < 0 || p.Y > Size - 1 || p.Y < 0) {throw new ArgumentOutOfRangeException("Jedna z wartości przekroczyła Size lub stała mniejsza od zera");}
-            }
-            return p;
+    public abstract Point NextDiagonal(Point p, Direction d);
+
+    public void Add(Creature creature, Point point)
+    {
+        if (!Exist(point))
+            throw new ArgumentException($"Punkt {point} jest poza granicami mapy.");
+        Fields[point.X, point.Y] ??= new List<Creature>();
+        Fields[point.X, point.Y]?.Add(creature);
+    }
+
+    public void Remove(Creature creature, Point point)
+    {
+        if (Fields[point.X, point.Y] != null)
+        {
+            Fields[point.X, point.Y]?.Remove(creature);
+            if (Fields[point.X, point.Y]?.Count == 0)
+                Fields[point.X, point.Y] = null;
+        }
+    }
+    public void Move(Creature creature, Point from, Point to)
+    {
+        Remove(creature, from);
+        Add(creature, to);
+    }
+
+    public List<Creature> At(Point point)
+    {
+        return Fields[point.X, point.Y] ?? new List<Creature>();
+    }
+    public List<Creature> At(int x, int y)
+    {
+        return At(new Point(x, y));
+    }
+    public Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5)
+            throw new ArgumentOutOfRangeException("Szerokość mapy musi wynosić co najmniej 5.");
+        if (sizeY < 5)
+            throw new ArgumentOutOfRangeException("Długość mapy musi wynosić co najmniej 5.");
+
+        SizeX = sizeX;
+        SizeY = sizeY;
+        boundaries = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
     }
 }

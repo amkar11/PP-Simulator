@@ -2,14 +2,35 @@
 using System.Security.Cryptography.X509Certificates;
 
 namespace PP_Simulator;
+
+using SimConsole;
 using Simulator.Maps;
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Starting Simulator!\n");
-          
-    Lab5b();
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        SmallSquareMap map = new(5);
+        List<Creature> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
+        List<Point> points = new() { new(2, 2), new(3, 1) };
+        string moves = "dlrludl";
+
+        Simulation simulation = new(map, creatures, points, moves);
+        MapVisualizer mapVisualizer = new(simulation.Map); 
+
+        while (!simulation.Finished)
+        {
+            mapVisualizer.Draw();
+
+            Console.WriteLine("\nPress any key to make a move...");
+            Console.ReadKey(true);
+            Console.Write($"{simulation.CurrentCreature.Info} {simulation.CurrentCreature.position} goes {simulation.CurrentMoveName}\n");
+            simulation.Turn();
+
+        }
+        mapVisualizer.Draw();
+        Console.WriteLine("\nSimulation finished!");
     }
    public static void Lab5a(){
             Rectangle rectangle = new Rectangle(6, 7, 12, 13);

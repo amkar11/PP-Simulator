@@ -3,7 +3,7 @@
     {
         private string? name;
         private int level;
-        public SmallMap? map;
+        public Map? map;
         public Point position;
         public abstract int power {get;}
         public string? Name
@@ -22,7 +22,7 @@
             Level = level;
         }
         public Creature() { }
-        public void AssignToMap(SmallMap map, Point startPosition)
+        public void AssignToMap(Map map, Point startPosition)
         {
             if (this.map!=null) {throw new Exception("Stwór jest już przypisany do mapy");}
             this.map = map;
@@ -40,14 +40,14 @@
         public abstract string Greeting();
 
 
-        public void Go(Direction direction){
-        if (map == null) {throw new Exception("Stwór nie jest przywiązany do żadnej mapy");}
-        
-        Point newPosition = map.Next(position, direction);
-        map.Remove(position, this);
-        map.Add(newPosition, this);
-        position = newPosition;
-    }
+        public void Go(Direction direction)
+        {
+        if (map == null)
+            return;
+        Point nextPosition = map.Next(position, direction);
+        map.Move(this, position, nextPosition);
+        position = nextPosition;
+     }
 }
 
 
