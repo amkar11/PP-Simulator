@@ -12,7 +12,7 @@ class Program
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
         SmallSquareMap map = new(5);
-        List<Creature> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
+        List<IMappable> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
         List<Point> points = new() { new(2, 2), new(3, 1) };
         string moves = "dlrludl";
 
