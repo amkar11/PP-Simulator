@@ -24,7 +24,7 @@ public class Simulation
     /// next move is again for first creature and so on.
     /// </summary>
     public string Moves { get; }
-    
+    private List<Direction> filteredMoves { get; }
     /// <summary>
     /// Has all moves been done?
     /// </summary>
@@ -38,7 +38,7 @@ public class Simulation
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    public string CurrentMoveName => Moves[moves_counter].ToString().ToLower();
+    public string CurrentMoveName => filteredMoves.Count > moves_counter ? filteredMoves[moves_counter].ToString().ToLower() : string.Empty;
 
     private List<Direction>? parsed_moves {get; set;}
     private int moves_counter {get; set;} = 0;
@@ -60,6 +60,15 @@ public class Simulation
             Positions = positions;
             Moves = moves;
             Map = map;
+            filteredMoves = Moves
+            .Select(c => DirectionParser.Parse(c.ToString().ToLower()))
+            .Where(d => d != null && d.Count > 0)
+            .Select(d => d[0])
+            .ToList();
+            if (filteredMoves.Count == 0)
+            {
+                throw new ArgumentException("Moves jest pusty.");
+            }
         }
 
     /// <summary>
@@ -72,21 +81,16 @@ public class Simulation
         {
             throw new InvalidOperationException("The simulation is already finished.");
         }
-        if (Moves.Length == 0)
+        if (moves_counter >= filteredMoves.Count)
         {
             Finished = true;
             return;
         }
-        char currentMoveChar = Moves[moves_counter];
-        var directions = DirectionParser.Parse(currentMoveChar.ToString());
-        if (directions != null && directions.Count > 0)
-        {
-            var direction = directions[0];
-            CurrentMappable.Go(direction);
-        }
+        Direction direction = filteredMoves[moves_counter];
+        CurrentMappable.Go(direction);
         moves_counter++;
         // Check if all moves are done
-        if (moves_counter >= Moves.Length)
+        if (moves_counter >= filteredMoves.Count)
         {
             Finished = true;
         }
