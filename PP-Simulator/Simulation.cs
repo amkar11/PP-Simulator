@@ -95,4 +95,9 @@ public class Simulation
             Finished = true;
         }
     }
+        public SimulationState GetState()
+    {
+        var mappableStates = Mappables.Select(m => new MappableState(m, m.position)).ToList();
+        return new SimulationState(moves_counter, mappableStates);
+    }
 }

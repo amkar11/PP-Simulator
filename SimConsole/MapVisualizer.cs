@@ -8,7 +8,16 @@ public class MapVisualizer
     {
         _map = map;
     }
-    public void Draw()
+        public void Draw(SimulationState state)
+        {
+        var tempMap = new TempMap(_map.SizeX, _map.SizeY, state.MappableStates);
+        DrawMap(tempMap);
+        }
+        public void Draw()
+        {
+        DrawMap(_map);
+        }
+    public void DrawMap(Map _map)
     {
 
         Console.Write(Box.TopLeft);
