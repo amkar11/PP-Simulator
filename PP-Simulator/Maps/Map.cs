@@ -6,6 +6,9 @@ public abstract class Map
     public int SizeX { get; }
     public int SizeY { get; }
     private Rectangle boundaries;
+    protected Func<Map, Point, Direction, Point>? FNext { get; set; }
+    protected Func<Map, Point, Direction, Point>? FNextDiagonal { get; set; }
+
     protected abstract List<IMappable>?[,] Fields { get; }
     /// <summary>
     /// Check if give point belongs to the map.
@@ -24,7 +27,7 @@ public abstract class Map
     /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
-    public abstract Point Next(Point p, Direction d);
+    public Point Next(Point p, Direction d) => FNext?.Invoke(this, p, d) ?? p;
 
     /// <summary>
     /// Next diagonal position to the point in a given direction 
@@ -33,7 +36,7 @@ public abstract class Map
     /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
-    public abstract Point NextDiagonal(Point p, Direction d);
+    public Point NextDiagonal(Point p, Direction d) => FNextDiagonal?.Invoke(this, p, d) ?? p;
 
     public virtual void Add(IMappable mappable, Point point)
     {
